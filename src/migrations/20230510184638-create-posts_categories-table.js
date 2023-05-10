@@ -7,15 +7,22 @@ module.exports = {
    * @param {import('sequelize')} Sequelize 
    */
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('categories', {
-      id: {
-        autoIncrement: true,
+    return queryInterface.createTable('posts_categories', {
+      post_id: {
         primaryKey: true,
+        references: {
+          model: 'blog_posts',
+          key: 'id',
+        },
         type: Sequelize.INTEGER,
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
+      category_id: {
+        primaryKey: true,
+        references: {
+          model: 'categories',
+          key: 'id',
+        },
+        type: Sequelize.INTEGER,
       },
     });
   },
@@ -26,6 +33,6 @@ module.exports = {
    * @param {import('sequelize')} Sequelize 
    */
   down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('categories');
+    return queryInterface.dropTable('posts_categories');
   }
 };
