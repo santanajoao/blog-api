@@ -29,7 +29,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 const findAllUsers = async (authorizationToken) => {
   const data = validateToken(authorizationToken);
   if (!data) {
-    return { type: 'INVALID_TOKEN', message: 'Invalid token' };
+    return { type: 'INVALID_TOKEN', message: 'Expired or invalid token' };
   }
 
   const users = await User.findAll({ attributes: { exclude: 'password' } });
