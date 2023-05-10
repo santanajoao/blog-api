@@ -1,4 +1,6 @@
 const express = require('express');
+const { UserController } = require('./controllers');
+const middlewares = require('./middlewares');
 
 // ...
 
@@ -10,6 +12,12 @@ app.get('/', (_request, response) => {
 });
 
 app.use(express.json());
+
+app.post(
+  '/login',
+  middlewares.checkForEmailAndPassword,
+  UserController.handlePostLogin,
+);
 
 // ...
 
