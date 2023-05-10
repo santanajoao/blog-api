@@ -43,6 +43,7 @@ services:
       NODE_ENV: 'development'
     networks:
       - blogs_api_net
+    user: node
 
   # Serviço que irá rodar o banco de dados
   db:
