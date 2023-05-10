@@ -1,12 +1,9 @@
-const { Op } = require('sequelize');
 const { User } = require('../../models');
 const errors = require('../../constants/errorTypes');
 
 const validateEmailAndPassword = async (email, password) => {
   const user = await User.findOne({
-    where: {
-      email: { [Op.eq]: email },
-    },
+    where: { email },
   });
 
   if (!user) {

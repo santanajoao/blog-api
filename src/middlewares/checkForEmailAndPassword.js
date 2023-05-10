@@ -5,8 +5,9 @@ const checkForEmailAndPassword = (req, res, next) => {
   const { email, password } = req.body;
 
   if (isNullish(email) || isNullish(password)) {
-    res.status(BAD_REQUEST)
-      .json({ message: 'Some required fields are missing' });
+    return res.status(BAD_REQUEST).json({
+      message: 'Some required fields are missing',
+    });
   }
 
   next();
