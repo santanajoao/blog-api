@@ -20,7 +20,18 @@ const handlePostUser = async (req, res) => {
   res.status(CREATED).json({ token: message });
 };
 
+const handleGetAllUsers = async (req, res) => {
+  const token = req.get('Authorization');
+
+  const { type, message } = UserService.findAllUsers(token);
+  if (type) {
+    return res.status(mapTypeToStatus(type)).json({ message });
+  }
+  res.status(OK).json(message);
+};
+
 module.exports = {
   handlePostLogin,
   handlePostUser,
+  handleGetAllUsers,
 };
