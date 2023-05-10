@@ -9,14 +9,14 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('categories', {
       id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
       },
     });
   },
