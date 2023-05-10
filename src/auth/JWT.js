@@ -13,6 +13,10 @@ const generateToken = (data) => {
   return jwt.sign(payload, process.env.JWT_SECRET, headers);
 };
 
+const validateToken = (authorizationToken) =>
+  jwt.verify(authorizationToken, process.env.JWT_SECRET);
+
 module.exports = {
   generateToken,
+  validateToken,
 };

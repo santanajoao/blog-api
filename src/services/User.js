@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const validations = require('./validations');
-const { generateToken } = require('../auth/JWT');
+const { generateToken, validateToken } = require('../auth/JWT');
 
 const login = async (email, password) => {
   const error = await validations.validateEmailAndPassword(email, password);
@@ -26,7 +26,18 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { type: null, message: token };
 };
 
+const findAllUsers = async (authorizationToken) => {
+  const data = validateToken(authorizationToken);
+  if (!data) {
+    return { type: 'INVALID_TOKEN', message: 'Invalid token' };
+  }
+
+  const users = await User.findAll({ attributes: { exclude: 'password' } });
+  return { type: null, message: users };
+};
+
 module.exports = {
   login,
   createUser,
+  findAllUsers,
 };
