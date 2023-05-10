@@ -6,14 +6,10 @@ const validateEmailAndPassword = async (email, password) => {
     where: { email },
   });
 
-  if (!user) {
-    return { type: errors.USER_NOT_FOUND, message: 'Invalid fields' };
+  if (!user || password !== user.password) {
+    return { type: errors.INVALID_FIELDS, message: 'Invalid fields' };
   }
 
-  if (password !== user.password) {
-    return { type: errors.WRONG_PASSWORD, message: 'Invalid fields' };
-  }
-  
   return { type: null, message: '' };
 };
 
