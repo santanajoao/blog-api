@@ -1,6 +1,7 @@
 const express = require('express');
 const { UserController } = require('./controllers');
 const middlewares = require('./middlewares');
+const routers = require('./routers');
 
 // ...
 
@@ -12,6 +13,7 @@ app.get('/', (_request, response) => {
 });
 
 app.use(express.json());
+app.use('/user', routers.UserRouter);
 
 app.post(
   '/login',

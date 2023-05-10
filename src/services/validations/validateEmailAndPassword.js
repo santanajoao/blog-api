@@ -7,7 +7,7 @@ const validateEmailAndPassword = async (email, password) => {
   });
 
   if (!user || password !== user.password) {
-    return { type: errors.INVALID_FIELDS, message: 'Invalid fields' };
+    return { type: errors.INVALID_FIELD, message: 'Invalid fields' };
   }
 
   return { type: null, message: '' };
