@@ -1,9 +1,9 @@
 const { BAD_REQUEST } = require('../constants/statusCodes');
 
-const checkForPost = (req, res, next) => {
-  const { title, content, categoryIds } = req.body;
+const checkForCategoryIds = (req, res, next) => {
+  const { categoryIds } = req.body;
 
-  if (!title || !content || !categoryIds) {
+  if (!categoryIds) {
     return res.status(BAD_REQUEST).json({
       message: 'Some required fields are missing',
     });
@@ -12,4 +12,4 @@ const checkForPost = (req, res, next) => {
   next();
 };
 
-module.exports = checkForPost;
+module.exports = checkForCategoryIds;

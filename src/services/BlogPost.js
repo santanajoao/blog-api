@@ -65,16 +65,16 @@ const editPost = async ({ authorizationToken, postId, title, content }) => {
   const tokenError = validations.validateAuthToken(authorizationToken);
   if (tokenError.type) return tokenError;
 
-  const permissionError = validations.validateUser(authorizationToken, postId);
+  const permissionError = await validations
+    .validateUser(authorizationToken, postId);
   if (permissionError.type) return permissionError;
 
-  const updatedPost = BlogPost.update({
-    title, content,
-  }, {
-    where: { id: postId },
-  });
+  await BlogPost.update(
+    { title, content },
+    { where: { id: postId } },
+  );
 
-  return { type: null, message: updatedPost };
+  return findPostById(authorizationToken, postId);
 };
 
 module.exports = {

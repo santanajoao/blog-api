@@ -7,11 +7,19 @@ const router = express.Router();
 router.post(
   '/',
   middlewares.checkForAuth,
-  middlewares.checkForPost,
+  middlewares.checkForTitleAndContent,
+  middlewares.checkForCategoryIds,
   BlogPostController.handlePostBlogPost,
 );
 
 router.get('/', middlewares.checkForAuth, BlogPostController.handleGetAllPosts);
 router.get('/:id', middlewares.checkForAuth, BlogPostController.handleGetPost);
+
+router.put(
+  '/:id',
+  middlewares.checkForAuth,
+  middlewares.checkForTitleAndContent,
+  BlogPostController.handlePutPost,
+);
 
 module.exports = router;

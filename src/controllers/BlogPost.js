@@ -36,8 +36,23 @@ const handleGetPost = async (req, res) => {
   res.status(OK).json(message);
 };
 
+const handlePutPost = async (req, res) => {
+  const authorizationToken = req.get('Authorization');
+  const postId = Number(req.params.id);
+
+  const { type, message } = await BlogPostService.editPost({ 
+    authorizationToken, postId, ...req.body,  
+  });
+
+  if (type) {
+    return res.status(mapTypeToStatus(type)).json({ message });
+  }
+  res.status(OK).json(message);
+};
+
 module.exports = {
   handlePostBlogPost,
   handleGetAllPosts,
   handleGetPost,
+  handlePutPost,
 };
