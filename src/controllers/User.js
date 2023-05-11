@@ -30,8 +30,20 @@ const handleGetAllUsers = async (req, res) => {
   res.status(OK).json(message);
 };
 
+const handleGetUser = async (req, res) => {
+  const token = req.get('Authorization');
+  const id = Number(req.params.id);
+
+  const { type, message } = await UserService.findUserById(token, id);
+  if (type) {
+    return res.status(mapTypeToStatus(type)).json({ message });
+  }
+  res.status(OK).json(message);
+};
+
 module.exports = {
   handlePostLogin,
   handlePostUser,
   handleGetAllUsers,
+  handleGetUser,
 };
