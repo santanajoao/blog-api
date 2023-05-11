@@ -2,8 +2,6 @@ const express = require('express');
 const { UserController } = require('./controllers');
 const middlewares = require('./middlewares');
 const routers = require('./routers');
-const { createPost } = require('./services/BlogPost');
-
 // ...
 
 const app = express();

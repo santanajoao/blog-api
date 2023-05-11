@@ -9,9 +9,10 @@ const createPost = async ({
 
   const categoryError = validations.validateCategoryIds(categoryIds);
   if (categoryError.type) return categoryError;
-
+  
+  const userId = authError.data.id;
   const newPost = await BlogPost.create({
-    title, content, id: authError.data.id,
+    title, content, id: userId,
   });
 
   const postsCategories = categoryIds
