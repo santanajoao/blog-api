@@ -38,7 +38,9 @@ const findUserById = async (authorizationToken, userId) => {
   const error = validations.validateAuth(authorizationToken);
   if (error.type) return error;
 
-  const user = await User.findByPk(userId);
+  const user = await User.findByPk(userId, {
+    attributes: { exclude: 'password' },
+  });
   if (!user) {
     return { type: 'USER_NOT_FOUND', message: 'User does not exist' };
   }

@@ -5,6 +5,7 @@ const map = {
   [errorTypes.INVALID_FIELD]: statusCodes.BAD_REQUEST,
   [errorTypes.USER_IN_USE]: statusCodes.CONFLICT,
   [errorTypes.INVALID_TOKEN]: statusCodes.UNAUTHORIZED,
+  [errorTypes.USER_NOT_FOUND]: statusCodes.NOT_FOUND,
 };
 
 const mapTypeToStatus = (type) => map[type] || 500;
