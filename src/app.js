@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use('/user', routers.UserRouter);
 app.use('/categories', routers.CategoryRouter);
+app.use('/post', routers.BlogPostRouter);
 
 app.post(
   '/login',

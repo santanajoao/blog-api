@@ -1,4 +1,5 @@
-const { BlogPost, PostCategory } = require('../models');
+const { Op } = require('sequelize');
+const { BlogPost, PostCategory, User } = require('../models');
 const validations = require('./validations');
 
 const createPost = async ({
@@ -7,13 +8,13 @@ const createPost = async ({
   const authError = validations.validateAuth(authenticationToken);
   if (authError.type) return authError;
 
-  const categoryError = validations.validateCategoryIds(categoryIds);
+  const categoryError = await validations.validateCategoryIds(categoryIds);
   if (categoryError.type) return categoryError;
   
-  const userId = authError.data.id;
-  const newPost = await BlogPost.create({
-    title, content, id: userId,
+  const user = await User.findOne({
+    where: { email: { [Op.eq]: authError.message.email } },
   });
+  const newPost = await BlogPost.create({ title, content, userId: user.id });
 
   const postsCategories = categoryIds
     .map((categoryId) => ({ categoryId, postId: newPost.id }));

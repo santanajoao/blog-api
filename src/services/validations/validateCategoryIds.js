@@ -1,12 +1,11 @@
 const { Op } = require('sequelize');
-const { BlogPost } = require('../../models');
+const { Category } = require('../../models');
 
 const validateCategoryIds = async (idList) => {
-  const existentCategories = await BlogPost.findAndCountAll({
+  const existentCategories = await Category.count({
     where: { id: { [Op.or]: idList } },
   });
-
-  if (existentCategories.length !== idList.length) {
+  if (existentCategories !== idList.length) {
     return {
       type: 'INVALID_FIELD',
       message: 'one or more "categoryIds" not found',
