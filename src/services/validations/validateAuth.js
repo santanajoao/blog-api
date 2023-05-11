@@ -7,7 +7,7 @@ const validateAuth = (authorizationToken) => {
     return { type: 'INVALID_TOKEN', message: 'Expired or invalid token' };
   }
 
-  return { type: null, message: data };
+  return { type: null, message: data.data };
 };
 
 module.exports = validateAuth;
