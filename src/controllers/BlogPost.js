@@ -21,6 +21,7 @@ const handleGetAllPosts = async (req, res) => {
   if (type) {
     return res.status(mapTypeToStatus(type)).json({ message });
   }
+
   res.status(OK).json(message);
 };
 

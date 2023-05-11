@@ -1,14 +1,17 @@
 const express = require('express');
-const { checkForAuth, checkForPost } = require('../middlewares');
+const middlewares = require('../middlewares');
 const { BlogPostController } = require('../controllers');
 
 const router = express.Router();
 
 router.post(
   '/',
-  checkForAuth,
-  checkForPost,
+  middlewares.checkForAuth,
+  middlewares.checkForPost,
   BlogPostController.handlePostBlogPost,
 );
+
+router.get('/', middlewares.checkForAuth, BlogPostController.handleGetAllPosts);
+router.get('/:id', middlewares.checkForAuth, BlogPostController.handleGetPost);
 
 module.exports = router;

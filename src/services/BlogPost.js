@@ -31,8 +31,8 @@ const findAllPosts = async (authorizationToken) => {
     include: [
       {
         model: User,
-        as: 'users',
-        throught: { attributes: { exclude: 'password' } },
+        as: 'user',
+        attributes: { exclude: 'password' },
       },
       { model: Category, as: 'categories' },
     ],
@@ -48,8 +48,8 @@ const findPostById = async (authorizationToken, postId) => {
     include: [
       {
         model: User,
-        as: 'users',
-        throught: { attributes: { exclude: 'password' } },
+        as: 'user',
+        attributes: { exclude: 'password' },
       },
       { model: Category, as: 'categories' },
     ],
