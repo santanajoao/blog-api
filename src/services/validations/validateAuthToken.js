@@ -1,6 +1,6 @@
 const { validateToken } = require('../../auth/JWT');
 
-const validateAuth = (authorizationToken) => {
+const validateAuthToken = (authorizationToken) => {
   const data = validateToken(authorizationToken);
 
   if (!data) {
@@ -10,4 +10,4 @@ const validateAuth = (authorizationToken) => {
   return { type: null, message: data.data };
 };
 
-module.exports = validateAuth;
+module.exports = validateAuthToken;

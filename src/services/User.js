@@ -27,7 +27,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 };
 
 const findAllUsers = async (authorizationToken) => {
-  const error = validations.validateAuth(authorizationToken);
+  const error = validations.validateAuthToken(authorizationToken);
   if (error.type) return error;
 
   const users = await User.findAll({ attributes: { exclude: 'password' } });
@@ -35,7 +35,7 @@ const findAllUsers = async (authorizationToken) => {
 };
 
 const findUserById = async (authorizationToken, userId) => {
-  const error = validations.validateAuth(authorizationToken);
+  const error = validations.validateAuthToken(authorizationToken);
   if (error.type) return error;
 
   const user = await User.findByPk(userId, {
