@@ -7,7 +7,6 @@ const handlePostCategory = async (req, res) => {
   const { name } = req.body;
 
   const { type, message } = await CategoryService.createCategory(token, name);
-  console.log(message);
   if (type) {
     return res.status(mapTypeToStatus(type)).json({ message });
   }
