@@ -2,9 +2,12 @@ const { CategoryService } = require('../services');
 const { CREATED } = require('../constants/statusCodes');
 const mapTypeToStatus = require('../utils/mapTypeToStatus');
 
-const handlePostCategory = (req, res) => {
+const handlePostCategory = async (req, res) => {
+  const token = req.get('Authorization');
   const { name } = req.body;
-  const { type, message } = CategoryService.createCategory(name);
+
+  const { type, message } = await CategoryService.createCategory(token, name);
+  console.log(message);
   if (type) {
     return res.status(mapTypeToStatus(type)).json({ message });
   }
