@@ -16,7 +16,8 @@ const findAllCategories = async (authorizationToken) => {
   const error = validations.validateAuth(authorizationToken);
   if (error.type) return error;
 
-  return Category.findAll();
+  const categories = await Category.findAll();
+  return { type: null, message: categories };
 };
 
 module.exports = {

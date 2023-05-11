@@ -11,4 +11,10 @@ router.post(
   CategoryController.handlePostCategory,
 );
 
+router.get(
+  '/',
+  middlewares.checkForAuth,
+  CategoryController.handleGetAllCategories,
+);
+
 module.exports = router;
