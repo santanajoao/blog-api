@@ -48,9 +48,22 @@ const findUserById = async (authorizationToken, userId) => {
   return { type: null, message: user };
 };
 
+const deleteUser = async (authorizationToken) => {
+  const error = validations.validateAuthToken(authorizationToken);
+  if (error.type) return error;
+
+  const { id } = error.message;
+  await User.destroy({
+    where: id,
+  });
+
+  return { type: null, message: '' };
+};
+
 module.exports = {
   login,
   createUser,
   findAllUsers,
   findUserById,
+  deleteUser,
 };
