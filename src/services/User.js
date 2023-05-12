@@ -53,9 +53,7 @@ const deleteUser = async (authorizationToken) => {
   if (error.type) return error;
 
   const { id } = error.message;
-  await User.destroy({
-    where: id,
-  });
+  await User.destroy({ where: { id } });
 
   return { type: null, message: '' };
 };
