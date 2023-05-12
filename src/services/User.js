@@ -6,7 +6,7 @@ const login = async (email, password) => {
   const error = await validations.validateEmailAndPassword(email, password);
   if (error.type) return error;
 
-  const token = generateToken({ email });
+  const token = generateToken(error.message);
 
   return { type: null, message: token };
 };
@@ -17,11 +17,11 @@ const createUser = async ({ displayName, email, password, image }) => {
   });
   if (error.type) return error;
 
-  await User.create({
+  const user = await User.create({
     displayName, email, password, image,
   });
-
-  const token = generateToken({ displayName, email, image });
+  const { password: _password, ...created } = user.dataValues;
+  const token = generateToken(created);
 
   return { type: null, message: token };
 };

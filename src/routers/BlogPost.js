@@ -22,4 +22,10 @@ router.put(
   BlogPostController.handlePutPost,
 );
 
+router.delete(
+  '/:id',
+  middlewares.checkForAuth,
+  BlogPostController.handleDeletePost,
+);
+
 module.exports = router;

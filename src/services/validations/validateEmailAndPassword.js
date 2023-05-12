@@ -10,7 +10,7 @@ const validateEmailAndPassword = async (email, password) => {
     return { type: errors.INVALID_FIELD, message: 'Invalid fields' };
   }
 
-  return { type: null, message: '' };
+  return { type: null, message: user };
 };
 
 module.exports = validateEmailAndPassword;
