@@ -63,7 +63,6 @@ const handleDeletePost = async (req, res) => {
 const handleGetPostSearch = async (req, res) => {
   const token = req.get('Authorization');
   const { q } = req.query;
-  console.log('>>>>> aqui <<<<<<');
 
   const { type, message } = await BlogPostService.searchPost(token, q);
   if (type) {
