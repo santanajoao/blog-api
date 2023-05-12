@@ -90,14 +90,18 @@ const deletePost = async (authorizationToken, postId) => {
 const searchPost = async (authorizationToken, searchTerm) => {
   const error = validations.validateAuthToken(authorizationToken);
   if (error.type) return error;
-  console.error('chegou aqui');
-  const posts = BlogPost.findAll({
+
+  const posts = await BlogPost.findAll({
     where: {
       [Op.or]: [
         { title: { [Op.like]: `%${searchTerm}%` } },
         { content: { [Op.like]: `%${searchTerm}%` } },
       ],
     },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories' },
+    ],
   });
 
   return { type: null, message: posts };

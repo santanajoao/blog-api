@@ -12,8 +12,14 @@ router.post(
   BlogPostController.handlePostBlogPost,
 );
 
-router.get('/', middlewares.checkForAuth, BlogPostController.handleGetAllPosts);
+router.get(
+  '/search',
+  middlewares.checkForAuth,
+  BlogPostController.handleGetPostSearch,
+);
+
 router.get('/:id', middlewares.checkForAuth, BlogPostController.handleGetPost);
+router.get('/', middlewares.checkForAuth, BlogPostController.handleGetAllPosts);
 
 router.put(
   '/:id',
@@ -26,12 +32,6 @@ router.delete(
   '/:id',
   middlewares.checkForAuth,
   BlogPostController.handleDeletePost,
-);
-
-router.get(
-  '/search',
-  middlewares.checkForAuth,
-  BlogPostController.handleGetPostSearch,
 );
 
 module.exports = router;
