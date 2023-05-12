@@ -28,4 +28,10 @@ router.delete(
   BlogPostController.handleDeletePost,
 );
 
+router.get(
+  '/search',
+  middlewares.checkForAuth,
+  BlogPostController.handleGetPostSearch,
+);
+
 module.exports = router;

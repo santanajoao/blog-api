@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const validations = require('./validations');
 const { POST_NOT_FOUND } = require('../constants/errorTypes');
@@ -41,14 +42,10 @@ const findAllPosts = async (authorizationToken) => {
 const findPostById = async (authorizationToken, postId) => {
   const error = validations.validateAuthToken(authorizationToken);
   if (error.type) return error;
-
   const post = await BlogPost.findByPk(postId, {
     include: [
       {
-        model: User,
-        as: 'user',
-        attributes: { exclude: 'password' },
-      },
+        model: User, as: 'user', attributes: { exclude: 'password' } },
       { model: Category, as: 'categories' },
     ],
   });
@@ -90,10 +87,27 @@ const deletePost = async (authorizationToken, postId) => {
   return { type: null, message: '' };
 };
 
+const searchPost = async (authorizationToken, searchTerm) => {
+  const error = validations.validateAuthToken(authorizationToken);
+  if (error.type) return error;
+  console.error('chegou aqui');
+  const posts = BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${searchTerm}%` } },
+        { content: { [Op.like]: `%${searchTerm}%` } },
+      ],
+    },
+  });
+
+  return { type: null, message: posts };
+};
+
 module.exports = {
   createPost,
   findAllPosts,
   findPostById,
   editPost,
   deletePost,
+  searchPost,
 };
