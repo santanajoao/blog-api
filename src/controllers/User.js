@@ -1,4 +1,4 @@
-const { OK, CREATED } = require('../constants/statusCodes');
+const { OK, CREATED, NO_CONTENT } = require('../constants/statusCodes');
 const { UserService } = require('../services');
 const mapTypeToStatus = require('../utils/mapTypeToStatus');
 
@@ -41,9 +41,19 @@ const handleGetUser = async (req, res) => {
   res.status(OK).json(message);
 };
 
+const handleDeleteOwnUser = async (req, res) => {
+  const token = req.get('Authorization');
+  const { type, message } = await UserService.deleteUser(token);
+  if (type) {
+    return res.status(mapTypeToStatus(type)).json({ message });
+  }
+  res.status(NO_CONTENT).end();
+};
+
 module.exports = {
   handlePostLogin,
   handlePostUser,
   handleGetAllUsers,
   handleGetUser,
+  handleDeleteOwnUser,
 };
