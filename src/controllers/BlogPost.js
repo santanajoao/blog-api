@@ -1,5 +1,5 @@
 const { BlogPostService } = require('../services');
-const { CREATED, OK } = require('../constants/statusCodes');
+const { CREATED, OK, NO_CONTENT } = require('../constants/statusCodes');
 const mapTypeToStatus = require('../utils/mapTypeToStatus');
 
 const handlePostBlogPost = async (req, res) => {
@@ -50,9 +50,21 @@ const handlePutPost = async (req, res) => {
   res.status(OK).json(message);
 };
 
+const handleDeletePost = async (req, res) => {
+  const token = req.get('Authorization');
+  const id = Number(req.params.id);
+
+  const { type, message } = await BlogPostService.deletePost(token, id);
+  if (type) {
+    return res.status(mapTypeToStatus(type)).json({ message });
+  }
+  res.status(NO_CONTENT).end();
+};
+
 module.exports = {
   handlePostBlogPost,
   handleGetAllPosts,
   handleGetPost,
   handlePutPost,
+  handleDeletePost,
 };
